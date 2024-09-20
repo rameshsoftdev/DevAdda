@@ -1,5 +1,5 @@
 #Express Setup
- -Create a repository
+ - Create a repository
  -Initialize the repository
  -package.json/express
  -package.js
