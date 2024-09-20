@@ -1,0 +1,20 @@
+{
+  "name": "devadda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "javascript"
+  ],
+  "author": "Ramesh Rathod",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
