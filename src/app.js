@@ -1,16 +1,24 @@
 const express = require('express');
 const app = express();
 
-app.use('/',(req, res)=>{
-    res.send('Hello from Node Server - home page');
+
+app.get('/user',(req,res)=>{
+    res.send('GET Method called');
 })
-app.use('/contact',(req, res)=>{
-    res.send('Hello from Node Server - contact me');
+app.post('/user',(req,res)=>{
+    res.send('POST Method called');
 })
-app.use('/about',(req, res)=>{
-    res.send('Hello from Node Server - about me');
+app.delete('/user',(req,res)=>{
+    res.send('DELETE Method called');
 })
 
-app.listen(3000,()=>{
+app.put('/user',(req,res)=>{
+    res.send('PUT Method called');
+})
+app.patch('/user',(req,res)=>{
+    res.send('PATCH Method called');
+})
+
+app.listen(3000,(req,res)=>{
     console.log('Server is succesfully listening on port 3000');
 });
