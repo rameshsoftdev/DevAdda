@@ -1,6 +1,25 @@
 const express = require('express');
 const app = express();
 
+app.get('/ab?c',(req,res)=>{
+    res.send('ab?c route');
+})
+app.get('/pqr+st',(req,res)=>{
+    res.send('pqr+st route');
+})
+app.get('/*pqr',(req,res)=>{
+    res.send('/*pqr route');
+})
+app.get('/aas(sd)+as',(req,res)=>{
+    res.send('aas(sd)+as route');
+})
+app.get('/item',(req,res)=>{
+    res.send(req.query); // query parameters
+})
+
+app.get('/category/:id/:catname/',(req,res)=>{
+    res.send(req.params); // query parameters
+})
 
 app.get('/user',(req,res)=>{
     res.send('GET Method called');
