@@ -1,32 +1,21 @@
 const express = require("express");
 const app = express();
+const {adminAuth, userAuth} = require('./middlewares/auth')
 
-// Signature
-// app.use('/route',rh1,rh2,rh3,rh4,rh5)
-// app.use('/route',rh1,rh2,rh3,rh4,rh5)
-// app.use('/route',rh1,[rh2,rh3],rh4,rh5)
+app.use('/admin',adminAuth);
+app.get('/admin/getAllRecords',(req,res)=>{
+    res.send('All recodrs');
+});
+app.delete('/admin/deleteRecords',(req,res)=>{
+    res.send('Deleted Records');
+});
+app.get('/user/Login',(req,res)=>{
+    res.send('User logged in successfully');
+});
+app.get('/user/getAlluser',userAuth,(req,res)=>{
+    res.send('User Records');
+});
 
-app.use(
-  "/user",
-  (req, res, next) => {
-    console.log("Route 1");
-    next();
-    //    res.send('Route 1');
-  },
-  [(req, res, next) => {
-    // res.send('Route 2');
-    console.log("Route 2");
-    next();
-  },
-  (req, res, munde) => {
-    // res.send('Route 3');
-    console.log("Route 3");
-    munde();
-  }],
-  (req, res) => {
-    res.send("Route 4");
-  }
-);
 
 app.listen(3000, (req, res) => {
   console.log("Server is succesfully listening on port 3000");
