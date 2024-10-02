@@ -13,6 +13,34 @@ app.post("/signup", async (req, res) => {
     res.send("Error in save :" + err.message);
   }
 });
+app.patch("/user/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const data = req.body;
+
+  try {
+    const ALLOW_UPDATES = ["firstName","lastName","age","gender","skills","photoUrl"];
+    const isUpdateAllowed = Object.keys(data).every((k)=>{
+          return ALLOW_UPDATES.includes(k);
+    });
+
+    if(!isUpdateAllowed){
+      throw new Error("Update Not Allowed");
+    }
+    if(data?.skills.length>10){
+      throw new Error("Skills should not be more than 10");
+    }
+    // Ensure updated document is returned by using { new: true }
+    const updatedUser = await User.findByIdAndUpdate(userId, data, { returnDocument:"before",runValidators:true });
+
+    if (!updatedUser) {
+      return res.status(404).send("User not found");
+    }
+
+    res.send(updatedUser);
+  } catch (err) {
+    res.status(500).send("Error in update: " + err.message);
+  }
+});
 app.get("/feed", async (req, res) => {
   const userEmail = req.body.email;
   try {
@@ -31,23 +59,7 @@ app.delete("/user",async (req,res)=>{
     res.send("Error in save :" + err.message);
   }
 });
-app.patch("/user", async (req, res) => {
-  const userId = req.body.userId;
-  const data = req.body;
 
-  try {
-    // Ensure updated document is returned by using { new: true }
-    const updatedUser = await User.findByIdAndUpdate(userId, data, { returnDocument:"before" });
-
-    if (!updatedUser) {
-      return res.status(404).send("User not found");
-    }
-
-    res.send(updatedUser);
-  } catch (err) {
-    res.status(500).send("Error in update: " + err.message);
-  }
-});
 
 
 connectDB()
